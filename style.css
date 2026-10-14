@@ -1,27 +1,73 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Great+Vibes&family=Cormorant+Garamond:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&display=swap');
 
 * { box-sizing: border-box; }
-body { margin: 0; min-height: 100vh; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 20px; }
+body { margin: 0; min-height: 100vh; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); font-family: 'Cormorant Garamond', Georgia, serif; font-size: 20px; }
 
-.round-btn { display: grid; place-items: center; width: 120px; height: 120px; border-radius: 50%; background: #7a0f1f; color: #fff; text-decoration: none; font-weight: 700; font-size: 18px; box-shadow: 0 8px 20px rgba(0,0,0,.35); }
-.round-btn.small { width: 72px; height: 72px; font-size: 15px; }
+/* Rounded rectangle button */
+.enter-btn {
+  display: inline-block;
+  padding: 16px 30px;
+  border-radius: 18px;
+  background: #e0836f;              /* coral, from Venus's skin and roses */
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 19px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  box-shadow: 0 8px 20px rgba(60, 40, 30, .3);
+  transition: transform .2s;
+}
+.enter-btn:hover { transform: scale(1.06); }
+.enter-btn.small { padding: 10px 18px; font-size: 15px; }
 
+/* HOME */
 body.home {
   background:
-    linear-gradient(rgba(255,244,228,.45), rgba(255,244,228,.45)),
-    url('birth-of-venus.jpg') center / cover no-repeat,
+    linear-gradient(rgba(255,244,228,.45), rgba(255,244,228,.45)),   /* fade: raise .45 for more */
+    url('birth-of-venus.jpg') center / cover no-repeat fixed,
     linear-gradient(160deg, #9fd3cf, #f2dcc0);
 }
-.hero { min-height: 100vh; display: flex; align-items: center; justify-content: space-between; padding: 24px; }
-.title { margin: 0; font-family: 'Anton', Impact, sans-serif; font-weight: 400; text-transform: uppercase; font-size: clamp(3.4rem, 17vw, 9rem); line-height: .95; color: #8b0a1f; }
+.hero { min-height: 100vh; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; padding: 24px 24px 120px; }
+.title {
+  margin: 0;
+  font-family: 'Anton', Impact, sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(3.2rem, 16vw, 9rem);
+  line-height: .95;
+  color: #1a6670;                    /* deep sea teal, from the painting's water */
+  text-shadow: 3px 3px 0 rgba(255, 236, 205, .8);
+}
+.song-player { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); width: min(92vw, 380px); z-index: 10; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,.35); }
+.song-player iframe { display: block; border-radius: 12px; }
 
-body.exhibitions { background: #f4ead7; color: #3b1a1a; }
-.top { display: flex; align-items: center; gap: 16px; padding: 18px 20px; background: #7a0f1f; color: #fff; }
+/* EXHIBITIONS */
+body.exhibitions { background: #fdf8ec; color: #3b2a1a; }   /* cream white */
+.top { display: flex; align-items: center; gap: 16px; padding: 18px 20px; background: #1a6670; color: #fff; }
 .page-title { margin: 0; font-family: 'Anton', Impact, sans-serif; font-weight: 400; text-transform: uppercase; font-size: 2.2rem; }
-.wrap { max-width: 720px; margin: 0 auto; padding: 24px 16px 60px; }
-.exhibit { margin-bottom: 36px; }
-.banner { display: grid; place-items: center; min-height: 220px; text-decoration: none; border-radius: 6px; box-shadow: 0 10px 24px rgba(0,0,0,.35); background-size: cover; background-position: center; }
-.banner h2 { margin: 0; font-family: 'Great Vibes', cursive; font-weight: 400; font-size: clamp(3rem, 14vw, 5rem); color: #fff; text-shadow: 0 2px 12px rgba(0,0,0,.8); }
-.banner.music { background-image: linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)), url('basquiat.jpg'), linear-gradient(135deg, #111, #f2c500 60%, #d62828); }
-.banner.books { background-image: linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)), url('last-supper.jpg'), linear-gradient(135deg, #3a2a14, #9a7a3a); }
-.exhibit p { margin: 12px 4px 0; font-size: 1.15rem; }
+.wrap { max-width: 760px; margin: 0 auto; padding: 24px 16px 70px; display: grid; gap: 22px; }
+
+.banner {
+  display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+  min-height: 210px; padding: 20px; text-decoration: none; border-radius: 8px;
+  box-shadow: 0 10px 24px rgba(60, 40, 20, .3);
+  background-size: cover; background-position: center;
+  background-image: linear-gradient(rgba(0,0,0,.42), rgba(0,0,0,.42)), var(--img), var(--fb);
+  transition: transform .25s;
+}
+.banner:hover { transform: translateY(-4px); }
+.banner h2 { margin: 0; font-family: 'Anton', Impact, sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 1px; font-size: clamp(1.9rem, 8.5vw, 3rem); line-height: 1.05; color: #fff; text-shadow: 0 2px 12px rgba(0,0,0,.7); }
+.banner p { margin: 10px 0 0; font-style: italic; font-size: 1.2rem; color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,.8); }
+
+/* Banner pictures: upload files with these names */
+.music       { --img: url('basquiat.jpg');       --fb: linear-gradient(135deg, #111, #f2c500 60%, #d62828); }
+.playlist    { --img: url('keith-haring.jpg');   --fb: linear-gradient(135deg, #ffd400, #ff3b3b 50%, #1d5bff); }
+.literature  { --img: url('frida-kahlo.jpg');    --fb: linear-gradient(135deg, #1f4d3a, #c2185b 70%, #e8a33d); }
+.film        { --img: url('caravaggio.jpg');     --fb: linear-gradient(135deg, #050403, #6a4a22); }
+.fame        { --img: url('edvard-munch.jpg');   --fb: linear-gradient(135deg, #e0642a, #f2b04a 50%, #274d8a); }
+.passport    { --img: url('yoshitomo-nara.jpg'); --fb: linear-gradient(135deg, #9fc9a2, #f4c6d8); }
+.artist      { --img: url('van-gogh.jpg');       --fb: linear-gradient(135deg, #12286b, #f2c230 70%, #2f6bd1); }
+.diary       { --img: url('yayoi-kusama.jpg');   --fb: radial-gradient(circle, #ff4d4d 20%, #ffd000 21%); }
+.confessions { --img: url('goya.jpg');           --fb: linear-gradient(135deg, #0f140e, #3a2a1a); }
+.confessions { background-image: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)), var(--img), var(--fb); }  /* darker, for the secrets */
