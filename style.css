@@ -9,7 +9,7 @@ body { margin: 0; min-height: 100vh; font-family: 'Cormorant Garamond', Georgia,
 body.home {
   background:
     linear-gradient(rgba(255,244,228,.45), rgba(255,244,228,.45)),
-    url('images/birth-of-venus.jpg') center / cover no-repeat,
+    url('birth-of-venus.jpg') center / cover no-repeat,
     linear-gradient(160deg, #9fd3cf, #f2dcc0);
 }
 .hero { min-height: 100vh; display: flex; align-items: center; justify-content: space-between; padding: 24px; }
@@ -22,6 +22,6 @@ body.exhibitions { background: #f4ead7; color: #3b1a1a; }
 .exhibit { margin-bottom: 36px; }
 .banner { display: grid; place-items: center; min-height: 220px; text-decoration: none; border-radius: 6px; box-shadow: 0 10px 24px rgba(0,0,0,.35); background-size: cover; background-position: center; }
 .banner h2 { margin: 0; font-family: 'Great Vibes', cursive; font-weight: 400; font-size: clamp(3rem, 14vw, 5rem); color: #fff; text-shadow: 0 2px 12px rgba(0,0,0,.8); }
-.banner.music { background-image: linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)), url('images/basquiat.jpg'), linear-gradient(135deg, #111, #f2c500 60%, #d62828); }
-.banner.books { background-image: linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)), url('images/leonardo.jpg'), linear-gradient(135deg, #3a2a14, #9a7a3a); }
+.banner.music { background-image: linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)), url('basquiat.jpg'), linear-gradient(135deg, #111, #f2c500 60%, #d62828); }
+.banner.books { background-image: linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)), url('leonardo.jpg'), linear-gradient(135deg, #3a2a14, #9a7a3a); }
 .exhibit p { margin: 12px 4px 0; font-size: 1.15rem; }
