@@ -3,43 +3,34 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Exhibitions · Khlo's Gallery</title>
+  <title>Exhibitions · Khlo’s Gallery</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="exhibitions">
-  <header class="top">
-    <a class="enter-btn small" href="index.html">Home</a>
-    <h1 class="page-title">Exhibitions</h1>
-  </header>
+<body class="exh">
+  <main id="list"></main>
 
-  <main class="wrap">
-    <a class="banner music" href="music.html">
-      <h2>Music</h2><p>My personal favourite songs and artists</p>
-    </a>
-    <a class="banner playlist" href="playlist.html">
-      <h2>Personalized Playlist</h2><p>Make your own playlist and create your own art</p>
-    </a>
-    <a class="banner literature" href="literature.html">
-      <h2>Literature</h2><p>My favorite pieces of literature</p>
-    </a>
-    <a class="banner film" href="film.html">
-      <h2>Film</h2><p>My all time favorite movies, shows, anime and more</p>
-    </a>
-    <a class="banner fame" href="hall-of-fame.html">
-      <h2>Hall of Fame</h2><p>Well known people I look up to</p>
-    </a>
-    <a class="banner passport" href="passport.html">
-      <h2>Stamped Passport</h2><p>Places I want to travel</p>
-    </a>
-    <a class="banner artist" href="artist.html">
-      <h2>Be Your Own Artist</h2><p>Create art and open your own world</p>
-    </a>
-    <a class="banner diary" href="diary.html">
-      <h2>Diary</h2><p>Write down your thoughts</p>
-    </a>
-    <a class="banner confessions" href="confessions.html">
-      <h2> Confessions &amp; Opinions</h2><p>Type and lock away</p>
-    </a>
-  </main>
+  <script>
+    // Each exhibition: title, description, link, picture, bg colour, button colour, home-button colour, button text colour, text side (r = right, l = left)
+    var P = [
+      ["Music", "Contains my favorite songs from different eras, moods, genres and artists that you can rate", "music.html", "basquiat.jpg", "#f0b731", "#339ee2", "#b8825a", "#111", "r"],
+      ["Make your own playlist", "Create your own playlist and dive into your world", "playlist.html", "varo.jpg", "#243f4b", "#71885e", "#4e8798", "#111", "l"],
+      ["Literature", "My favorite pieces of literature", "literature.html", "frida.jpg", "#ce95a7", "#f0dcd6", "#b97250", "#111", "r"],
+      ["Stamped passport", "Places I’d like to visit", "passport.html", "nara.jpg", "#cfa58b", "#773930", "#773930", "#fff", "r"],
+      ["Film", "Favourite movies, television shows and anime", "film.html", "caravaggio.jpg", "#382217", "#7e523b", "#7e523b", "#fff", "r"],
+      ["Create your own art", "Create your own art and make your own world", "art.html", "vangogh.jpg", "#385f92", "#a3b19e", "#a3b19e", "#111", "l"],
+      ["Diary", "Write down your thoughts", "diary.html", "kusama.jpg", "#f1a027", "#d76e13", "#d76e13", "#111", "l"],
+      ["Confessions", "Write and lock", "confessions.html", "goya.jpg", "#0d0e07", "#937751", "#937751", "#111", "l"]
+    ];
+    document.getElementById('list').innerHTML = P.map(function (p, i) {
+      return '<section class="p rv ' + p[8] + '" id="p' + i + '" style="--bg:' + p[4] + ';--btn:' + p[5] + ';--hm:' + p[6] + ';--bf:' + p[7] + ';--img:url(\'' + p[3] + '\')">' +
+        '<div class="art"></div><div class="txt">' +
+        '<a class="hm" href="index.html">Home</a>' +
+        (i ? '<a class="ch up" href="#p' + (i - 1) + '" aria-label="Previous">∧</a>' : '') +
+        '<h2>' + p[0] + '</h2><p>' + p[1] + '</p><a class="go" href="' + p[2] + '">Explore</a>' +
+        (i < P.length - 1 ? '<a class="ch dn" href="#p' + (i + 1) + '" aria-label="Next">∨</a>' : '') +
+        '</div></section>';
+    }).join('');
+  </script>
+  <script src="script.js"></script>
 </body>
 </html>
