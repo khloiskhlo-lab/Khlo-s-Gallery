@@ -1,77 +1,63 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Figtree:wght@400;700&family=Montserrat:wght@400;700&family=Mrs+Saint+Delafield&family=Libre+Caslon+Text:ital@0;1&display=swap');
 
 * { box-sizing: border-box; }
-body { margin: 0; min-height: 100vh; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); font-family: 'Cormorant Garamond', Georgia, serif; font-size: 20px; }
-
-/* Rounded rectangle button */
-.enter-btn {
-  display: inline-block;
-  padding: 16px 30px;
-  border-radius: 18px;
-  background: #e0836f;              /* coral, from Venus's skin and roses */
-  color: #fff;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 19px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  box-shadow: 0 8px 20px rgba(60, 40, 30, .3);
-  transition: transform .2s;
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; font-family: 'Montserrat', sans-serif; font-size: 17px; line-height: 1.55;
+  padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);
+  animation: pageIn .8s ease both; transition: opacity .35s;
 }
-.enter-btn:hover { transform: scale(1.06); }
-.enter-btn.small { padding: 10px 18px; font-size: 15px; }
+body.leaving { opacity: 0; }
+@keyframes pageIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes rise { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
 
-/* HOME */
-body.home {
-  background:
-    linear-gradient(rgba(255,244,228,.45), rgba(255,244,228,.45)),   /* fade: raise .45 for more */
-    url('birth-of-venus.jpg') center / cover no-repeat fixed,
-    linear-gradient(160deg, #9fd3cf, #f2dcc0);
+/* ---------- HOME ---------- */
+.hero {
+  position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; padding: 24px;
+  background: linear-gradient(rgba(0,0,0,.1), rgba(0,0,0,.1)), url('birth-of-venus.jpg') center / cover no-repeat,
+              linear-gradient(160deg, #7fa4a6, #a8693a);              /* backup colours */
 }
-.hero { min-height: 100vh; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; padding: 24px 24px 120px; }
-.title {
-  margin: 0;
-  font-family: 'Anton', Impact, sans-serif;
-  font-weight: 400;
-  text-transform: uppercase;
-  font-size: clamp(3.2rem, 16vw, 9rem);
-  line-height: .95;
-  color: #1a6670;                    /* deep sea teal, from the painting's water */
-  text-shadow: 3px 3px 0 rgba(255, 236, 205, .8);
+.hero h1 { margin: 0; font: 400 clamp(4.6rem, 21vw, 9rem)/.85 'Mrs Saint Delafield', cursive; color: #fffbe0; text-shadow: 0 2px 18px rgba(0,0,0,.4); animation: rise 1.4s ease both; }
+.hero-foot { display: flex; justify-content: flex-end; animation: rise 1.4s .5s ease both; }
+.pill {
+  display: inline-block; padding: 16px 44px; border-radius: 999px; background: #a8b09a; color: #1f1f1f; text-decoration: none;
+  font: 700 15px 'Montserrat', sans-serif; transition: transform .2s, background .2s;
 }
-.song-player { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); width: min(92vw, 380px); z-index: 10; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,.35); }
-.song-player iframe { display: block; border-radius: 12px; }
+.pill:hover { transform: scale(1.05); background: #bcc4ae; }
+.pill:active, .go:active, .hm:active { transform: scale(.94); }
+.down { position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%); color: #fff; font-size: 30px; text-decoration: none; animation: bob 1.8s infinite; }
+@keyframes bob { 50% { transform: translate(-50%, 6px); } }
 
-/* EXHIBITIONS */
-body.exhibitions { background:  linear-gradient(rgba(253,248,236,.8), rgba(253,248,236,.8)),   /* fade: lower .8 to show more of the picture */
-    url('exhibitions-bg.jpg') center / cover fixed,
-    #fdf8ec;
-  color: #3b2a1a;
-}
-.top { display: flex; align-items: center; gap: 16px; padding: 18px 20px; background: #1a6670; color: #fff; }
-.page-title { margin: 0; font-family: 'Anton', Impact, sans-serif; font-weight: 400; text-transform: uppercase; font-size: 2.2rem; }
-.wrap { max-width: 760px; margin: 0 auto; padding: 24px 16px 70px; display: grid; gap: 22px; }
+.about { background: #81917f; color: #1c261b; padding: 64px 24px; display: grid; gap: 28px; grid-template-columns: 1fr; }
+.about h2 { margin: 0; font: 400 clamp(3.4rem, 13vw, 5.4rem)/1 'Libre Caslon Text', Georgia, serif; letter-spacing: -2px; }
+.ab p { margin: 0 0 14px; max-width: 46ch; }
+.about q { quotes: none; font: italic 400 clamp(1.5rem, 6vw, 2.2rem)/1.2 'Libre Caslon Text', Georgia, serif; }
+@media (min-width: 760px) { .about { grid-template-columns: 1fr 1fr; padding: 80px 8vw; } .about q { grid-column: 1; } }
 
-.banner {
-  display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
-  min-height: 210px; padding: 20px; text-decoration: none; border-radius: 8px;
-  box-shadow: 0 10px 24px rgba(60, 40, 20, .3);
-  background-size: cover; background-position: center;
-  background-image: linear-gradient(rgba(0,0,0,.42), rgba(0,0,0,.42)), var(--img), var(--fb);
-  transition: transform .25s;
+/* ---------- EXHIBITIONS ---------- */
+.exh { background: #111; }
+.p { display: grid; grid-template-columns: 1fr; min-height: 100vh; background: var(--bg); color: #fff; scroll-margin-top: 0; }
+.rv { opacity: 0; transform: translateY(46px); transition: opacity .9s ease, transform .9s ease; }
+.rv.in { opacity: 1; transform: none; }
+.art { min-height: 42vh; background: var(--img) center / cover, linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,.25)); transition: filter .5s; }
+.p:hover .art { filter: brightness(1.07); }
+.txt { position: relative; display: flex; flex-direction: column; justify-content: center; gap: 14px; padding: 80px 26px; }
+.p.r .txt { align-items: flex-end; text-align: right; }
+.p.l .txt { align-items: flex-start; text-align: left; }
+.txt h2 { margin: 0; font: 400 clamp(2.3rem, 9vw, 3.8rem)/1.05 'Cinzel', serif; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 1px 10px rgba(0,0,0,.25); }
+.txt p { margin: 0; max-width: 32ch; font: 400 1.05rem 'Figtree', sans-serif; text-shadow: 0 1px 8px rgba(0,0,0,.25); }
+.go, .hm {
+  display: inline-block; border-radius: 999px; text-decoration: none; font: 700 14px 'Figtree', sans-serif;
+  transition: transform .2s, filter .2s;
 }
-.banner:hover { transform: translateY(-4px); }
-.banner h2 { margin: 0; font-family: 'Anton', Impact, sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 1px; font-size: clamp(1.9rem, 8.5vw, 3rem); line-height: 1.05; color: #fff; text-shadow: 0 2px 12px rgba(0,0,0,.7); }
-.banner p { margin: 10px 0 0; font-family: 'Anton', Impact, sans-serif; font-weight: 400 ;font-style: normal; letter-spacing: 1.5px; text-transform: uppercase: font-size: 1rem; color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,.8); }
+.go { margin-top: 6px; padding: 13px 44px; background: var(--btn); color: var(--bf); }
+.hm { position: absolute; top: 22px; right: 22px; padding: 10px 26px; background: var(--hm); color: #111; }
+.go:hover, .hm:hover { transform: scale(1.06); filter: brightness(1.08); }
+.ch { position: absolute; left: 50%; transform: translateX(-50%); color: rgba(0,0,0,.55); font-size: 22px; text-decoration: none; }
+.ch.up { top: 18px; left: 40%; } .ch.dn { bottom: 18px; }
+@media (min-width: 760px) { .p { grid-template-columns: 1fr 1.4fr; } .art { min-height: 100vh; } .txt { padding: 80px 7vw; } }
 
-/* Banner pictures: upload files with these names */
-.music       { --img: url('basquiat.jpg');       --fb: linear-gradient(135deg, #111, #f2c500 60%, #d62828); }
-.playlist    { --img: url('keith-haring.jpg');   --fb: linear-gradient(135deg, #ffd400, #ff3b3b 50%, #1d5bff); }
-.literature  { --img: url('frida-kahlo.jpg');    --fb: linear-gradient(135deg, #1f4d3a, #c2185b 70%, #e8a33d); }
-.film        { --img: url('caravaggio.jpg');     --fb: linear-gradient(135deg, #050403, #6a4a22); }
-.fame        { --img: url('edvard-munch.jpg');   --fb: linear-gradient(135deg, #e0642a, #f2b04a 50%, #274d8a); }
-.passport    { --img: url('yoshitomo-nara.jpg'); --fb: linear-gradient(135deg, #9fc9a2, #f4c6d8); }
-.artist      { --img: url('van-gogh.jpg');       --fb: linear-gradient(135deg, #12286b, #f2c230 70%, #2f6bd1); }
-.diary       { --img: url('yayoi-kusama.jpg');   --fb: radial-gradient(circle, #ff4d4d 20%, #ffd000 21%); }
-.confessions { --img: url('goya.jpg');           --fb: linear-gradient(135deg, #0f140e, #3a2a1a); }
-.confessions { background-image: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)), var(--img), var(--fb); }  /* darker, for the secrets */
+@media (prefers-reduced-motion: reduce) {
+  *, *:before, *:after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .rv { opacity: 1; transform: none; }
+}
