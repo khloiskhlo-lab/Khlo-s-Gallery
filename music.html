@@ -3,196 +3,207 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Music · Khlo's Gallery</title>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Sedgwick+Ave+Display&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
+  <title>Music · Khlo’s Gallery</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Cinzel:wght@400;600&family=Figtree:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      color-scheme: light;
-      --teal: #1a6670; --coral: #e0836f; --cream: #fdf8ec; --ink: #3b2a1a;
-      --red: #e3262b; --blue: #1f4fd8; --yellow: #ffd400; --green: #1fa34a; --black: #111;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0; min-height: 100vh;
-      padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);
-      background: linear-gradient(180deg, #b7c9ec 0%, #d6e2f6 50%, #eaf0fa 100%) fixed; color: var(--ink);
-      font-family: 'Cormorant Garamond', Georgia, serif; font-size: 20px;
-    }
+    body { background: #0d0b09; color: #f4ead7; font-family: 'Figtree', sans-serif; }
+    /* Red navigation bar */
+    .bar { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: 18px; padding: 14px 16px; background: #651015; box-shadow: 0 4px 14px rgba(0,0,0,.4); }
+    .bar button { background: none; border: 0; color: #fff; font-size: 28px; cursor: pointer; line-height: 1; }
+    .bar a { color: #fff; text-decoration: none; font: 400 1.25rem 'Cinzel', serif; text-transform: uppercase; letter-spacing: 1px; }
+    #drawer { position: fixed; top: 58px; left: 0; z-index: 9; width: min(80vw, 300px); background: #651015; padding: 10px 0 20px; box-shadow: 6px 6px 20px rgba(0,0,0,.5); animation: pageIn .3s; }
+    #drawer[hidden] { display: none; }
+    #drawer a { display: block; padding: 12px 22px; color: #fff; text-decoration: none; font: 400 1.1rem 'Cinzel', serif; }
+    #drawer hr { border: 0; border-top: 1px solid rgba(255,255,255,.2); margin: 6px 0; }
+    #view { animation: pageIn .6s ease both; transition: opacity .28s, transform .28s; }
+    #view.out { opacity: 0; transform: translateY(-10px); }
 
-    /* Navigation bar */
-    header { position: sticky; top: 0; z-index: 10; }
-    .top { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: var(--blue); overflow-x: auto; }
-    .tab {
-      flex: none; padding: 9px 20px; border-radius: 18px; border: 3px solid var(--black);
-      background: #fff; color: var(--black); text-decoration: none;
-      font: 400 1.05rem 'Anton', Impact, sans-serif; text-transform: uppercase; letter-spacing: 1.5px;
-      box-shadow: 3px 3px 0 var(--black); transition: transform .15s;
-    }
-    .tab:hover { transform: translateY(-2px) rotate(-1deg); }
-    .tab.on { background: var(--yellow); }
-    .stripe { display: flex; height: 8px; }
-    .stripe i { flex: 1; } .stripe i:nth-child(1){background:var(--red)} .stripe i:nth-child(2){background:var(--yellow)}
-    .stripe i:nth-child(3){background:var(--blue)} .stripe i:nth-child(4){background:var(--green);flex:.2}
+    /* Music home */
+    .mh { position: relative; min-height: calc(100vh - 58px); overflow: hidden; text-align: center; padding: 18vh 20px 0;
+      background: radial-gradient(circle at 30% 20%, #2a2826, transparent 50%), #161513; }
+    .mh h1 { margin: 0 0 28px; font: 600 clamp(2.4rem, 10vw, 5.4rem)/1 'Cinzel', serif; color: #c9a22e; text-transform: uppercase; }
+    .btn { display: inline-block; padding: 14px 36px; border-radius: 999px; background: #9b252b; color: #f4ead7; text-decoration: none; font: 700 16px 'Figtree', sans-serif; transition: transform .2s; }
+    .btn:hover { transform: scale(1.06); } .btn:active { transform: scale(.94); }
+    .vn { position: absolute; left: 50%; top: 52%; width: min(95vw, 760px); aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%;
+      background: repeating-radial-gradient(circle, #050505 0 2px, #121212 3px 4px); animation: spin 14s linear infinite; z-index: -0; }
+    .vn i, .rc i { position: absolute; left: 50%; top: 50%; width: 30%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; background: #c41f27; }
+    .vn i:after, .rc i:after { content: ""; position: absolute; left: 50%; top: 50%; width: 10%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; background: #111; }
+    @keyframes spin { to { transform: translateX(-50%) rotate(360deg); } }
+    .mh .btn { position: relative; z-index: 2; }
 
-    main { max-width: 760px; margin: 0 auto; padding: 22px 14px 70px; }
+    /* Categories list */
+    .cl { display: grid; grid-template-columns: 1fr; min-height: calc(100vh - 58px); background: #651015; }
+    .cl ul { list-style: none; margin: 0; padding: 40px 26px; align-self: center; }
+    .cl li { margin: 0 0 26px; } .cl li a { color: #fff; text-decoration: none; font: 400 1.7rem 'Cinzel', serif; transition: letter-spacing .25s; }
+    .cl li a:hover { letter-spacing: 2px; }
+    .cl .ph { min-height: 36vh; background: var(--img) center / cover, linear-gradient(135deg, #111, #444); }
+    @media (min-width: 760px) { .cl { grid-template-columns: 1.4fr 1fr; } .cl .ph { min-height: 0; } }
 
-    /* Section banner */
-    .banner {
-      display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-      min-height: 200px; padding: 20px; border-radius: 8px; margin-bottom: 22px;
-      box-shadow: 0 10px 24px rgba(60,40,20,.3);
-      background: linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)), url('basquiat.jpg') center / cover,
-                  linear-gradient(135deg, #111, #f2c500 60%, #d62828);
-    }
-    .banner h2 { margin: 0; font: 400 clamp(2rem, 9vw, 3.2rem)/1.05 'Anton', Impact, sans-serif; text-transform: uppercase; letter-spacing: 1px; color: #fff; text-shadow: 0 2px 12px rgba(0,0,0,.7); }
-    .banner p { margin: 10px 0 0; font: 400 1rem 'Anton', Impact, sans-serif; text-transform: uppercase; letter-spacing: 1.5px; color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,.8); }
-
-    /* 3 x 3 album grid */
-    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px 10px; }
-    .tile { all: unset; cursor: pointer; display: block; text-align: center; }
-    .cv {
-      position: relative; display: grid; place-items: center; aspect-ratio: 1; padding: 6px; overflow: hidden;
-      background: var(--c); color: #fff; font: 15px/1.1 'Sedgwick Ave Display', cursive;
-      border: 3px solid var(--black); box-shadow: 5px 5px 0 var(--c); transition: transform .2s;
-    }
-    .tile:hover .cv, .tile:focus-visible .cv { transform: translateY(-4px) rotate(-1.5deg); }
+    /* Category pages */
+    .cb { text-align: center; padding: 110px 20px 70px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), var(--img) center / cover, linear-gradient(135deg, #3a3228, #111); }
+    .cb h1 { margin: 0; font: 400 clamp(2.6rem, 11vw, 5rem)/1 'Anton', Impact, sans-serif; text-transform: uppercase; }
+    .cb p { margin: 8px 0 0; font-size: 1.2rem; opacity: .9; }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 30px 16px 40px; }
+    .gl { text-align: center; margin: 40px 0 22px; font: 400 clamp(2rem, 8vw, 3rem) 'Cinzel', serif; }
+    .gr { display: grid; gap: 22px 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    @media (min-width: 640px) { .gr.c4 { grid-template-columns: repeat(4, minmax(0, 1fr)); } .gr.c3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    .gr.c3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .tl { all: unset; cursor: pointer; display: block; text-align: center; }
+    .tl .cv { position: relative; display: grid; place-items: center; aspect-ratio: 1; padding: 8px; overflow: hidden; background: #3a2a20; font: 400 .95rem/1.2 'Cinzel', serif; border: 2px solid #2b2118; transition: transform .25s; }
+    .tl:hover .cv { transform: translateY(-5px) rotate(-1.5deg); }
     .cv img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-    .tt { display: block; margin-top: 10px; font-weight: 700; font-size: 15px; line-height: 1.1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .ta { display: block; font-size: 13px; opacity: .7; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .ts { display: block; font-size: 14px; letter-spacing: 1px; color: #c9a000; min-height: 18px; }
-    .hint { text-align: center; font-style: italic; opacity: .7; margin-top: 18px; font-size: 1rem; }
+    .tl b { display: block; margin-top: 10px; font-size: .95rem; } .tl em { display: block; font-size: .85rem; opacity: .75; font-style: normal; }
+    .tl i { display: block; min-height: 18px; color: #e6b93a; font-style: normal; letter-spacing: 1px; font-size: .9rem; }
+    .soon { text-align: center; opacity: .7; padding: 60px 0; font-size: 1.2rem; }
 
-    /* Pop-up player */
-    .modal { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; padding: 16px; background: rgba(17,17,17,.75); overflow-y: auto; }
-    .modal[hidden] { display: none; }
-    .sheet { position: relative; width: min(100%, 420px); background: var(--cream); border: 4px solid var(--black); border-radius: 14px; padding: 18px; box-shadow: 8px 8px 0 var(--c, var(--red)); }
-    .x { position: absolute; top: 8px; right: 10px; width: 36px; height: 36px; border-radius: 12px; border: 0; background: var(--coral); color: #fff; font-size: 18px; cursor: pointer; z-index: 3; }
-    .vw { position: relative; width: 100%; aspect-ratio: 1.3; margin: 8px 0 12px; }
-    .vw .big { position: absolute; left: 0; top: 0; width: 72%; aspect-ratio: 1; z-index: 2; background: var(--c); border: 3px solid var(--black); box-shadow: 0 10px 24px rgba(0,0,0,.45); object-fit: cover; }
-    .disc { position: absolute; right: 0; top: 3%; width: 68%; aspect-ratio: 1; border-radius: 50%; z-index: 1; display: grid; place-items: center;
-      background: repeating-radial-gradient(circle, #0b0b0b 0 2px, #1f1f1f 3px 4px); box-shadow: 0 8px 20px rgba(0,0,0,.5); transform: translateX(-41%); }
-    .disc i { width: 34%; aspect-ratio: 1; border-radius: 50%; background: var(--c, var(--red)); display: block; }
-    .vw.go .disc { animation: out .8s ease forwards, spin 3.2s linear .8s infinite; }
-    @keyframes out { to { transform: translateX(0); } }
-    @keyframes spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
-    .sheet h3 { margin: 4px 0 0; font: 400 2.1rem/1 'Sedgwick Ave Display', cursive; }
-    .sheet .by { margin: 2px 0 12px; font-weight: 700; opacity: .75; }
-    .sheet iframe { width: 100%; height: 80px; border: 0; border-radius: 12px; display: block; }
-    .rate { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
-    .star { font-size: 34px; line-height: 1; padding: 2px 3px; cursor: pointer; background: none; border: 0; color: #d9d9d9; -webkit-text-stroke: 1.5px var(--black); transition: transform .15s; }
-    .star:hover { transform: scale(1.2) rotate(-6deg); }
-    .star.on { color: var(--yellow); }
-    .label { font-weight: 700; font-size: 1rem; } .label.done { color: var(--green); }
-    footer { text-align: center; padding: 0 16px 36px; font-size: 14px; opacity: .6; }
+    /* Now-playing stage with spinning vinyl and stars */
+    .stg { background: #651015; padding: 50px 20px 70px; display: grid; gap: 28px; grid-template-columns: 1fr; max-width: none; align-items: center; }
+    .stg[hidden] { display: none; }
+    .sv { position: relative; width: min(100%, 440px); aspect-ratio: 1.3; margin: 0 auto; }
+    .sv img { position: absolute; left: 0; top: 0; width: 72%; aspect-ratio: 1; z-index: 2; object-fit: cover; background: #3a2a20; box-shadow: 0 12px 30px rgba(0,0,0,.55); }
+    .rc { position: absolute; right: 0; top: 3%; width: 68%; aspect-ratio: 1; border-radius: 50%; background: repeating-radial-gradient(circle, #050505 0 2px, #151515 3px 4px); transform: translateX(-41%); box-shadow: 0 10px 24px rgba(0,0,0,.5); }
+    .sv.go .rc { animation: out .9s ease forwards, rot 3.4s linear .9s infinite; }
+    @keyframes out { to { transform: translateX(0); } } @keyframes rot { to { transform: rotate(360deg); } }
+    .si h2 { margin: 0; font: 400 clamp(2.4rem, 9vw, 3.6rem)/1.05 'Cinzel', serif; text-transform: uppercase; }
+    .si p { margin: 4px 0 14px; font: 400 1.5rem 'Cinzel', serif; opacity: .9; }
+    .star { background: none; border: 0; padding: 2px 4px; font-size: 38px; line-height: 1; color: rgba(255,255,255,.35); cursor: pointer; transition: transform .15s; }
+    .star:hover { transform: scale(1.2) rotate(-6deg); } .star.on { color: #fff; }
+    #sf { display: block; width: 100%; height: 80px; border: 0; border-radius: 12px; margin-top: 16px; } #sf[hidden], #sl[hidden] { display: none; }
+    #sl { display: inline-block; margin-top: 16px; padding: 12px 28px; border-radius: 999px; background: #9b252b; color: #f4ead7; text-decoration: none; font-weight: 700; }
+    @media (min-width: 760px) { .stg { grid-template-columns: 1fr 1fr; padding: 60px 8vw; } }
   </style>
 </head>
 <body>
 
-<header>
-  <nav class="top">
-    <a class="tab" href="index.html">Home</a>
-    <a class="tab" href="exhibitions.html">Exhibitions</a>
-    <a class="tab on" href="music.html">Music</a>
-  </nav>
-  <div class="stripe"><i></i><i></i><i></i><i></i></div>
+<header class="bar">
+  <button id="burger" aria-label="Menu">☰</button>
+  <a href="#" data-v="home">Home</a>
+  <a href="#" data-v="cats">Categories</a>
 </header>
 
-<main>
-  <!-- ===== SECTION 1: PERSONAL FAVORITES ===== -->
-  <div class="banner"><h2>Personal favorites</h2><p>All my favorite, rateable songs</p></div>
-  <div class="grid" id="grid"></div>
-  <p class="hint">Tap an album to open it, play the song and rate it.</p>
+<nav id="drawer" hidden>
+  <a href="index.html">Khlo’s Gallery</a>
+  <a href="exhibitions.html">Exhibitions</a>
+  <hr>
+  <a href="#" data-v="decades">Through the decades</a>
+  <a href="#" data-v="favourites">Favourites</a>
+  <a href="#" data-v="genres">Genres</a>
+  <a href="#" data-v="moods">Moods</a>
+</nav>
 
-  <!-- SECTION 2 goes here later -->
-</main>
-<footer>Ratings are saved on your own device.</footer>
-
-<div class="modal" id="modal" hidden>
-  <div class="sheet" id="sheet">
-    <button class="x" id="x" aria-label="Close">✕</button>
-    <div class="vw" id="vw"><div class="disc"><i></i></div><img class="big" id="big" alt=""></div>
-    <h3 id="mt"></h3><p class="by" id="ma"></p>
-    <iframe id="mf" allow="autoplay; clipboard-write; encrypted-media" title="Spotify player"></iframe>
-    <div class="rate"><span id="stars"></span><span class="label" id="lab"></span></div>
-  </div>
-</div>
+<main id="view"></main>
 
 <script>
-  // ---- Your songs. id = the part of the Spotify link between /track/ and the ? ----
-  // Covers load from Spotify automatically. To use your own picture instead, add img: "yourfile.jpg"
-  var songs = [
-    { title: "Confessions",        artist: "BADBADNOTGOOD",         id: "1Sc2RHxyKHMeyCChQTWTnp" },
-    { title: "Someday, Somewhere", artist: "Jungle",                id: "20FqWsyuUaQTU5tk4nP6eN" },
-    { title: "Better Off Dead",    artist: "Sleeping with Sirens",  id: "4MjJlPgUYMQjvHOQq0uvOv" },
-    { title: "free.99",            artist: "Malcolm Todd",          id: "7t3foREw43cV1hHZZPhwnY" },
-    { title: "Be Careful",         artist: "Gabriel Jacoby",        id: "7bVitlfQ30KsBAOpLePugd" },
-    { title: "Falling (in place)", artist: "Noah Guy",              id: "0tCd1wfXWkZsWB8mRop3B2" },
-    { title: "Bulls in the Bronx", artist: "Pierce the Veil",       id: "23UoI3jlFiWdo5jadUYo69" },
-    { title: "Scar Tissue",        artist: "Red Hot Chili Peppers", id: "1G391cbiT3v3Cywg8T7DM1" },
-    { title: "Besame Mucho",       artist: "João Gilberto",         id: "2yEpIibskkd64N9l5NsuJC" }
-  ];
-  var cols = ['#e3262b', '#1f4fd8', '#ffd400'], covers = {}, cur = 0;
-  var $ = function (id) { return document.getElementById(id); };
+  /* ================= YOUR SONGS =================
+     Each song: [title, artist, spotify id (optional), your own cover picture (optional)]
+     Spotify id = the part of the link between /track/ and the ?
+     Songs with an id get their cover and a player automatically.
+     Songs without an id get an "Open on Spotify" search button. */
+  var CATS = {
+    decades: { t: "Through the decades", s: "some oldie but goodies", img: "cat-decades.jpg", g: [
+      { l: "60s–70s", s: [["Teenager in Love","Dion & the Belmonts"],["Vienna","Billy Joel"],["What’s Going On","Marvin Gaye"],["Let’s Stay Together","Al Green"]] },
+      { l: "80s–90s", s: [["I Like It","DeBarge"],["The Beautiful Ones","Prince"],["On & On","Erykah Badu"],["Butter","A Tribe Called Quest"]] },
+      { l: "00s–10s", s: [["Sooner or Later","N.E.R.D"],["I Don’t Love You","My Chemical Romance"],["I’ve Had It Up to Here","Weezer"],["The Boy Who Could Fly","Pierce the Veil"]] }
+    ]},
+    favourites: { t: "Favourites", s: "all my favorite, rateable songs", img: "cat-favourites.jpg", g: [
+      { l: "", c: 3, s: [
+        ["Confessions","BADBADNOTGOOD","1Sc2RHxyKHMeyCChQTWTnp"],
+        ["Someday, Somewhere","Jungle","20FqWsyuUaQTU5tk4nP6eN"],
+        ["Better Off Dead","Sleeping with Sirens","4MjJlPgUYMQjvHOQq0uvOv"],
+        ["free.99","Malcolm Todd","7t3foREw43cV1hHZZPhwnY"],
+        ["Be Careful","Gabriel Jacoby","7bVitlfQ30KsBAOpLePugd"],
+        ["Falling (in place)","Noah Guy","0tCd1wfXWkZsWB8mRop3B2"],
+        ["Bulls in the Bronx","Pierce the Veil","23UoI3jlFiWdo5jadUYo69"],
+        ["Scar Tissue","Red Hot Chili Peppers","1G391cbiT3v3Cywg8T7DM1"],
+        ["Besame Mucho","João Gilberto","2yEpIibskkd64N9l5NsuJC"]
+      ]}
+    ]},
+    genres: { t: "Genres", s: "coming soon", img: "cat-genres.jpg", g: [] },
+    moods:  { t: "Moods",  s: "coming soon", img: "cat-moods.jpg",  g: [] }
+  };
 
-  function getR(id) { try { return parseInt(localStorage.getItem('rate-' + id), 10) || 0; } catch (e) { return 0; } }
-  function setR(id, n) { try { n ? localStorage.setItem('rate-' + id, n) : localStorage.removeItem('rate-' + id); } catch (e) {} }
-  function starText(n) { return n ? '★★★★★'.slice(0, n) + '☆☆☆☆☆'.slice(0, 5 - n) : ''; }
+  var SP = "https://open.spotify.com/", $ = function (i) { return document.getElementById(i); };
+  var flat = [], cur = 0, covers = {};
+  var STAGE = '<section class="stg" id="stg" hidden><div class="sv" id="sv"><div class="rc"><i></i></div><img id="sc" alt=""></div>' +
+    '<div class="si"><h2 id="st"></h2><p id="sa"></p><div id="stars"></div>' +
+    '<iframe id="sf" allow="autoplay; clipboard-write; encrypted-media" title="Spotify player" hidden></iframe>' +
+    '<a id="sl" target="_blank" rel="noopener" hidden>Open on Spotify</a></div></section>';
 
-  // Build the 3x3 grid
-  $('grid').innerHTML = songs.map(function (s, i) {
-    return '<button class="tile" data-i="' + i + '" style="--c:' + cols[i % 3] + '">' +
-      '<span class="cv">' + s.title + '</span>' +
-      '<span class="tt">' + s.title + '</span><span class="ta">' + s.artist + '</span>' +
-      '<span class="ts" id="ts' + i + '">' + starText(getR(s.id)) + '</span></button>';
-  }).join('');
+  function slug(t, a) { return (t + a).toLowerCase().replace(/[^a-z0-9]/g, ''); }
+  function gR(k) { try { return +localStorage.getItem('r-' + k) || 0; } catch (e) { return 0; } }
+  function sR(k, n) { try { n ? localStorage.setItem('r-' + k, n) : localStorage.removeItem('r-' + k); } catch (e) {} }
+  function st(n) { return n ? '★★★★★'.slice(0, n) + '☆☆☆☆☆'.slice(0, 5 - n) : ''; }
 
-  // Load album covers
-  function putCover(i, url) {
-    covers[i] = url;
-    var cv = document.querySelector('.tile[data-i="' + i + '"] .cv'), img = new Image();
-    img.alt = songs[i].title;
-    img.onload = function () { cv.appendChild(img); };
-    img.src = url;
+  function cover(s, cb) {
+    if (covers[s.k]) return cb(covers[s.k]);
+    if (s.img) { covers[s.k] = s.img; return cb(s.img); }
+    if (!s.id) return;
+    fetch(SP + 'oembed?url=' + SP + 'track/' + s.id).then(function (r) { return r.json(); })
+      .then(function (d) { if (d.thumbnail_url) { covers[s.k] = d.thumbnail_url; cb(d.thumbnail_url); } }).catch(function () {});
   }
-  songs.forEach(function (s, i) {
-    if (s.img) { putCover(i, s.img); return; }
-    fetch('https://open.spotify.com/oembed?url=https://open.spotify.com/track/' + s.id)
-      .then(function (r) { return r.json(); })
-      .then(function (d) { if (d.thumbnail_url) putCover(i, d.thumbnail_url); })
-      .catch(function () {});
-  });
 
-  // Pop-up
   function paint() {
-    var n = getR(songs[cur].id);
-    document.querySelectorAll('#stars .star').forEach(function (b, k) { b.classList.toggle('on', k < n); });
-    $('lab').textContent = n ? 'You rated it ' + n + '/5' : 'Tap a star to rate';
-    $('lab').classList.toggle('done', !!n);
-    $('ts' + cur).textContent = starText(n);
+    var n = gR(flat[cur].k);
+    document.querySelectorAll('#stars .star').forEach(function (b, i) { b.classList.toggle('on', i < n); });
+    $('s' + cur).textContent = st(n);
   }
-  $('stars').innerHTML = [1,2,3,4,5].map(function (n) { return '<button class="star" data-n="' + n + '" aria-label="' + n + ' stars">★</button>'; }).join('');
-  document.querySelectorAll('#stars .star').forEach(function (b) {
-    b.onclick = function () {
-      var n = parseInt(b.dataset.n, 10), id = songs[cur].id;
-      if (n === getR(id)) n = 0;
-      setR(id, n); paint();
-    };
-  });
-  function openSong(i) {
-    cur = i; var s = songs[i];
-    $('sheet').style.setProperty('--c', cols[i % 3]);
-    $('mt').textContent = s.title; $('ma').textContent = s.artist;
-    $('big').src = covers[i] || ''; $('big').style.visibility = covers[i] ? 'visible' : 'hidden';
-    $('mf').src = 'https://open.spotify.com/embed/track/' + s.id;
-    $('modal').hidden = false; document.body.style.overflow = 'hidden';
-    var vw = $('vw'); vw.classList.remove('go'); void vw.offsetWidth; vw.classList.add('go');
+  function pick(n) {
+    cur = n; var s = flat[n];
+    $('stg').hidden = false;
+    $('st').textContent = s.t; $('sa').textContent = s.a;
+    $('sc').removeAttribute('src'); cover(s, function (u) { if (cur === n) $('sc').src = u; });
+    if (s.id) { $('sf').src = SP + 'embed/track/' + s.id; $('sf').hidden = false; $('sl').hidden = true; }
+    else { $('sf').removeAttribute('src'); $('sf').hidden = true; $('sl').href = SP + 'search/' + encodeURIComponent(s.t + ' ' + s.a); $('sl').hidden = false; }
+    var v = $('sv'); v.classList.remove('go'); void v.offsetWidth; v.classList.add('go');
     paint();
+    $('stg').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
-  function closeSong() { $('modal').hidden = true; $('mf').src = ''; document.body.style.overflow = ''; }
-  document.querySelectorAll('.tile').forEach(function (t) { t.onclick = function () { openSong(+t.dataset.i); }; });
-  $('x').onclick = closeSong;
-  $('modal').onclick = function (e) { if (e.target === $('modal')) closeSong(); };
-  addEventListener('keydown', function (e) { if (e.key === 'Escape') closeSong(); });
+
+  function drawCat(k) {
+    var c = CATS[k], n = 0, h; flat = [];
+    h = '<div class="cb" style="--img:url(\'' + (c.img || '') + '\')"><h1>' + c.t + '</h1><p>' + c.s + '</p></div><div class="wrap">';
+    if (!c.g.length) h += '<p class="soon">Coming soon…</p>';
+    c.g.forEach(function (g) {
+      h += (g.l ? '<h2 class="gl">' + g.l + '</h2>' : '') + '<div class="gr c' + (g.c || 4) + '">';
+      g.s.forEach(function (a) {
+        var s = { t: a[0], a: a[1], id: a[2] || '', img: a[3] || '' }; s.k = slug(s.t, s.a); flat.push(s);
+        h += '<button class="tl" data-n="' + n + '"><span class="cv">' + s.t + '</span><b>' + s.t + '</b><em>' + s.a + '</em><i id="s' + n + '">' + st(gR(s.k)) + '</i></button>';
+        n++;
+      });
+      h += '</div>';
+    });
+    $('view').innerHTML = h + '</div>' + (flat.length ? STAGE : '');
+    if (!flat.length) return;
+    $('stars').innerHTML = [1,2,3,4,5].map(function (i) { return '<button class="star" data-n="' + i + '" aria-label="' + i + ' stars">★</button>'; }).join('');
+    document.querySelectorAll('#stars .star').forEach(function (b) {
+      b.onclick = function () { var s = flat[cur], v = +b.dataset.n; sR(s.k, v === gR(s.k) ? 0 : v); paint(); };
+    });
+    document.querySelectorAll('.tl').forEach(function (t) {
+      var i = +t.dataset.n; t.onclick = function () { pick(i); };
+      cover(flat[i], function (u) { var im = new Image(); im.alt = ''; im.onload = function () { t.querySelector('.cv').appendChild(im); }; im.src = u; });
+    });
+  }
+
+  var VIEWS = {
+    home: '<section class="mh"><h1>Music exhibition</h1><a class="btn" href="#" data-v="cats">Discover categories</a><div class="vn"><i></i></div></section>',
+    cats: '<section class="cl"><ul><li><a href="#" data-v="decades">Through the decades</a></li><li><a href="#" data-v="favourites">Favourites</a></li><li><a href="#" data-v="genres">Genres</a></li><li><a href="#" data-v="moods">Moods</a></li></ul><div class="ph" style="--img:url(\'music-cats.jpg\')"></div></section>'
+  };
+  function wire(root) {
+    root.querySelectorAll('[data-v]').forEach(function (a) { a.onclick = function (e) { e.preventDefault(); $('drawer').hidden = true; go(a.dataset.v); }; });
+  }
+  function render(v) { if (VIEWS[v]) $('view').innerHTML = VIEWS[v]; else drawCat(v); wire($('view')); }
+  function go(v) {
+    var m = $('view'); m.classList.add('out');
+    setTimeout(function () {
+      render(v); m.classList.remove('out'); window.scrollTo(0, 0);
+      m.style.animation = 'none'; void m.offsetWidth; m.style.animation = '';
+    }, 280);
+  }
+  wire(document.body);
+  $('burger').onclick = function () { $('drawer').hidden = !$('drawer').hidden; };
+  render('home');
 </script>
+<script src="script.js"></script>
 </body>
 </html>
