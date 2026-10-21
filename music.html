@@ -8,7 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Cinzel:wght@400;600&family=Figtree:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body { background: #0d0b09; color: #f4ead7; font-family: 'Figtree', sans-serif; }
-    /* Red navigation bar */
     .bar { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: 18px; padding: 14px 16px; background: #651015; box-shadow: 0 4px 14px rgba(0,0,0,.4); }
     .bar button { background: none; border: 0; color: #fff; font-size: 28px; cursor: pointer; line-height: 1; }
     .bar a { color: #fff; text-decoration: none; font: 400 1.25rem 'Cinzel', serif; text-transform: uppercase; letter-spacing: 1px; }
@@ -19,20 +18,18 @@
     #view { animation: pageIn .6s ease both; transition: opacity .28s, transform .28s; }
     #view.out { opacity: 0; transform: translateY(-10px); }
 
-    /* Music home */
     .mh { position: relative; min-height: calc(100vh - 58px); overflow: hidden; text-align: center; padding: 18vh 20px 0;
       background: radial-gradient(circle at 30% 20%, #2a2826, transparent 50%), #161513; }
     .mh h1 { margin: 0 0 28px; font: 600 clamp(2.4rem, 10vw, 5.4rem)/1 'Cinzel', serif; color: #c9a22e; text-transform: uppercase; }
     .btn { display: inline-block; padding: 14px 36px; border-radius: 999px; background: #9b252b; color: #f4ead7; text-decoration: none; font: 700 16px 'Figtree', sans-serif; transition: transform .2s; }
     .btn:hover { transform: scale(1.06); } .btn:active { transform: scale(.94); }
     .vn { position: absolute; left: 50%; top: 52%; width: min(95vw, 760px); aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%;
-      background: repeating-radial-gradient(circle, #050505 0 2px, #121212 3px 4px); animation: spin 14s linear infinite; z-index: -0; }
+      background: repeating-radial-gradient(circle, #050505 0 2px, #121212 3px 4px); animation: spin 14s linear infinite; }
     .vn i, .rc i { position: absolute; left: 50%; top: 50%; width: 30%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; background: #c41f27; }
     .vn i:after, .rc i:after { content: ""; position: absolute; left: 50%; top: 50%; width: 10%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; background: #111; }
     @keyframes spin { to { transform: translateX(-50%) rotate(360deg); } }
     .mh .btn { position: relative; z-index: 2; }
 
-    /* Categories list */
     .cl { display: grid; grid-template-columns: 1fr; min-height: calc(100vh - 58px); background: #651015; }
     .cl ul { list-style: none; margin: 0; padding: 40px 26px; align-self: center; }
     .cl li { margin: 0 0 26px; } .cl li a { color: #fff; text-decoration: none; font: 400 1.7rem 'Cinzel', serif; transition: letter-spacing .25s; }
@@ -40,14 +37,13 @@
     .cl .ph { min-height: 36vh; background: var(--img) center / cover, linear-gradient(135deg, #111, #444); }
     @media (min-width: 760px) { .cl { grid-template-columns: 1.4fr 1fr; } .cl .ph { min-height: 0; } }
 
-    /* Category pages */
     .cb { text-align: center; padding: 110px 20px 70px; background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), var(--img) center / cover, linear-gradient(135deg, #3a3228, #111); }
     .cb h1 { margin: 0; font: 400 clamp(2.6rem, 11vw, 5rem)/1 'Anton', Impact, sans-serif; text-transform: uppercase; }
     .cb p { margin: 8px 0 0; font-size: 1.2rem; opacity: .9; }
     .wrap { max-width: 980px; margin: 0 auto; padding: 30px 16px 40px; }
     .gl { text-align: center; margin: 40px 0 22px; font: 400 clamp(2rem, 8vw, 3rem) 'Cinzel', serif; }
     .gr { display: grid; gap: 22px 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    @media (min-width: 640px) { .gr.c4 { grid-template-columns: repeat(4, minmax(0, 1fr)); } .gr.c3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @media (min-width: 640px) { .gr.c4 { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
     .gr.c3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .tl { all: unset; cursor: pointer; display: block; text-align: center; }
     .tl .cv { position: relative; display: grid; place-items: center; aspect-ratio: 1; padding: 8px; overflow: hidden; background: #3a2a20; font: 400 .95rem/1.2 'Cinzel', serif; border: 2px solid #2b2118; transition: transform .25s; }
@@ -57,8 +53,7 @@
     .tl i { display: block; min-height: 18px; color: #e6b93a; font-style: normal; letter-spacing: 1px; font-size: .9rem; }
     .soon { text-align: center; opacity: .7; padding: 60px 0; font-size: 1.2rem; }
 
-    /* Now-playing stage with spinning vinyl and stars */
-    .stg { background: #651015; padding: 50px 20px 70px; display: grid; gap: 28px; grid-template-columns: 1fr; max-width: none; align-items: center; }
+    .stg { background: #651015; padding: 50px 20px 70px; display: grid; gap: 28px; grid-template-columns: 1fr; align-items: center; }
     .stg[hidden] { display: none; }
     .sv { position: relative; width: min(100%, 440px); aspect-ratio: 1.3; margin: 0 auto; }
     .sv img { position: absolute; left: 0; top: 0; width: 72%; aspect-ratio: 1; z-index: 2; object-fit: cover; background: #3a2a20; box-shadow: 0 12px 30px rgba(0,0,0,.55); }
@@ -87,133 +82,4 @@
   <a href="exhibitions.html">Exhibitions</a>
   <hr>
   <a href="#" data-v="decades">Through the decades</a>
-  <a href="#" data-v="favourites">Favourites</a>
-  <a href="#" data-v="genres">Genres</a>
-  <a href="#" data-v="moods">Moods</a>
-</nav>
-
-<main id="view"></main>
-
-<script>
-  /* ================= YOUR SONGS =================
-     Each song: [title, artist, spotify id (optional), your own cover picture (optional)]
-     Spotify id = the part of the link between /track/ and the ?
-     Songs with an id get their cover and a player automatically.
-     Songs without an id get an "Open on Spotify" search button. */
-  var CATS = {
-    decades: { t: "Through the decades", s: "some oldie but goodies", img: "cat-decades.jpg", g: [
-      { l: "60s–70s", s: [
-        ["Teenager in Love","Dion & the Belmonts","0QGwOFQChzflLAmPq5NwKo"],
-        ["Vienna","Billy Joel","4U45aEWtQhrm8A5mxPaFZ7"],
-        ["What’s Going On","Marvin Gaye","3Um9toULmYFGCpvaIPFw7l"],
-        ["Let’s Stay Together","Al Green","63xdwScd1Ai1GigAwQxE8y"]
-      ]},
-      { l: "80s–90s", s: [
-        ["I Like It","DeBarge","1c5KZhtOAOH7eFOlBekNhS"],
-        ["The Beautiful Ones","Prince","5PoY1wQ43XApWDu4ytxOKl"],
-        ["On & On","Erykah Badu","0tNuJpBgtE65diL6Q8Q7fI"],
-        ["Butter","A Tribe Called Quest","758mQT4zzlvBhy9PvNePwC"]
-      ]},
-      { l: "00s–10s", s: [
-        ["Sooner or Later","N.E.R.D","4JMYfwYULOoWTaIW3CTvvT"],
-        ["I Don’t Love You","My Chemical Romance","4RAOI1etsgbh5NP3T5R8rN"],
-        ["I’ve Had It Up to Here","Weezer","1n3z9C5QWGFcn5sueTO694"],
-        ["The Boy Who Could Fly","Pierce the Veil","635K4hTo5J8d7q8qhfcTMH"]
-      ]}
-    ]},
-        favourites: { t: "Favourites", s: "all my favorite, rateable songs", img: "cat-favourites.jpg", g: [
-      { l: "", c: 3, s: [
-        ["I can do what I want","Mei Semones","3pAggfK0BtAzU6fDyW6DUy"],
-        ["THAT’S MY…","Noah Guy","1uTHFzZkckkBAVWZxjButa"],
-        ["Tomorrow","Jorja Smith","14qLa09blyCJdkRJRQ8lpV"]
-      ]}
-    ]},
-    ]},
-    genres: { t: "Genres", s: "coming soon", img: "cat-genres.jpg", g: [] },
-    moods:  { t: "Moods",  s: "coming soon", img: "cat-moods.jpg",  g: [] }
-  };
-
-  var SP = "https://open.spotify.com/", $ = function (i) { return document.getElementById(i); };
-  var flat = [], cur = 0, covers = {};
-  var STAGE = '<section class="stg" id="stg" hidden><div class="sv" id="sv"><div class="rc"><i></i></div><img id="sc" alt=""></div>' +
-    '<div class="si"><h2 id="st"></h2><p id="sa"></p><div id="stars"></div>' +
-    '<iframe id="sf" allow="autoplay; clipboard-write; encrypted-media" title="Spotify player" hidden></iframe>' +
-    '<a id="sl" target="_blank" rel="noopener" hidden>Open on Spotify</a></div></section>';
-
-  function slug(t, a) { return (t + a).toLowerCase().replace(/[^a-z0-9]/g, ''); }
-  function gR(k) { try { return +localStorage.getItem('r-' + k) || 0; } catch (e) { return 0; } }
-  function sR(k, n) { try { n ? localStorage.setItem('r-' + k, n) : localStorage.removeItem('r-' + k); } catch (e) {} }
-  function st(n) { return n ? '★★★★★'.slice(0, n) + '☆☆☆☆☆'.slice(0, 5 - n) : ''; }
-
-  function cover(s, cb) {
-    if (covers[s.k]) return cb(covers[s.k]);
-    if (s.img) { covers[s.k] = s.img; return cb(s.img); }
-    if (!s.id) return;
-    fetch(SP + 'oembed?url=' + SP + 'track/' + s.id).then(function (r) { return r.json(); })
-      .then(function (d) { if (d.thumbnail_url) { covers[s.k] = d.thumbnail_url; cb(d.thumbnail_url); } }).catch(function () {});
-  }
-
-  function paint() {
-    var n = gR(flat[cur].k);
-    document.querySelectorAll('#stars .star').forEach(function (b, i) { b.classList.toggle('on', i < n); });
-    $('s' + cur).textContent = st(n);
-  }
-  function pick(n) {
-    cur = n; var s = flat[n];
-    $('stg').hidden = false;
-    $('st').textContent = s.t; $('sa').textContent = s.a;
-    $('sc').removeAttribute('src'); cover(s, function (u) { if (cur === n) $('sc').src = u; });
-    if (s.id) { $('sf').src = SP + 'embed/track/' + s.id; $('sf').hidden = false; $('sl').hidden = true; }
-    else { $('sf').removeAttribute('src'); $('sf').hidden = true; $('sl').href = SP + 'search/' + encodeURIComponent(s.t + ' ' + s.a); $('sl').hidden = false; }
-    var v = $('sv'); v.classList.remove('go'); void v.offsetWidth; v.classList.add('go');
-    paint();
-    $('stg').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  function drawCat(k) {
-    var c = CATS[k], n = 0, h; flat = [];
-    h = '<div class="cb" style="--img:url(\'' + (c.img || '') + '\')"><h1>' + c.t + '</h1><p>' + c.s + '</p></div><div class="wrap">';
-    if (!c.g.length) h += '<p class="soon">Coming soon…</p>';
-    c.g.forEach(function (g) {
-      h += (g.l ? '<h2 class="gl">' + g.l + '</h2>' : '') + '<div class="gr c' + (g.c || 4) + '">';
-      g.s.forEach(function (a) {
-        var s = { t: a[0], a: a[1], id: a[2] || '', img: a[3] || '' }; s.k = slug(s.t, s.a); flat.push(s);
-        h += '<button class="tl" data-n="' + n + '"><span class="cv">' + s.t + '</span><b>' + s.t + '</b><em>' + s.a + '</em><i id="s' + n + '">' + st(gR(s.k)) + '</i></button>';
-        n++;
-      });
-      h += '</div>';
-    });
-    $('view').innerHTML = h + '</div>' + (flat.length ? STAGE : '');
-    if (!flat.length) return;
-    $('stars').innerHTML = [1,2,3,4,5].map(function (i) { return '<button class="star" data-n="' + i + '" aria-label="' + i + ' stars">★</button>'; }).join('');
-    document.querySelectorAll('#stars .star').forEach(function (b) {
-      b.onclick = function () { var s = flat[cur], v = +b.dataset.n; sR(s.k, v === gR(s.k) ? 0 : v); paint(); };
-    });
-    document.querySelectorAll('.tl').forEach(function (t) {
-      var i = +t.dataset.n; t.onclick = function () { pick(i); };
-      cover(flat[i], function (u) { var im = new Image(); im.alt = ''; im.onload = function () { t.querySelector('.cv').appendChild(im); }; im.src = u; });
-    });
-  }
-
-  var VIEWS = {
-    home: '<section class="mh"><h1>Music exhibition</h1><a class="btn" href="#" data-v="cats">Discover categories</a><div class="vn"><i></i></div></section>',
-    cats: '<section class="cl"><ul><li><a href="#" data-v="decades">Through the decades</a></li><li><a href="#" data-v="favourites">Favourites</a></li><li><a href="#" data-v="genres">Genres</a></li><li><a href="#" data-v="moods">Moods</a></li></ul><div class="ph" style="--img:url(\'music-cats.jpg\')"></div></section>'
-  };
-  function wire(root) {
-    root.querySelectorAll('[data-v]').forEach(function (a) { a.onclick = function (e) { e.preventDefault(); $('drawer').hidden = true; go(a.dataset.v); }; });
-  }
-  function render(v) { if (VIEWS[v]) $('view').innerHTML = VIEWS[v]; else drawCat(v); wire($('view')); }
-  function go(v) {
-    var m = $('view'); m.classList.add('out');
-    setTimeout(function () {
-      render(v); m.classList.remove('out'); window.scrollTo(0, 0);
-      m.style.animation = 'none'; void m.offsetWidth; m.style.animation = '';
-    }, 280);
-  }
-  wire(document.body);
-  $('burger').onclick = function () { $('drawer').hidden = !$('drawer').hidden; };
-  render('home');
-</script>
-<script src="script.js"></script>
-</body>
-</html>
+  <a href="#" data
